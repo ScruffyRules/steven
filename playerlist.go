@@ -52,7 +52,7 @@ type playerListUIEntry struct {
 	text    *ui.Text
 	icon    *ui.Image
 	iconHat *ui.Image
-	ping    *ui.Image
+	ping    *ui.Text
 }
 
 func (p playerListUIEntry) set(enabled bool) {
@@ -125,7 +125,8 @@ func (p *playerListUI) render(delta float64) {
 			iconHat := ui.NewImage(pl.skin, 0, 0, 16, 16, 40/64.0, 8/64.0, 8/64.0, 8/64.0, 255, 255, 255).
 				Attach(ui.Top, ui.Center)
 			ui.AddDrawable(iconHat)
-			ping := ui.NewImage(render.GetTexture("gui/icons"), 0, 0, 20, 16, 0, 16/256.0, 10/256.0, 8/256.0, 255, 255, 255).
+			//ping := ui.NewImage(render.GetTexture("gui/icons"), 0, 0, 20, 16, 0, 16/256.0, 10/256.0, 8/256.0, 255, 255, 255).
+			text := ui.NewText("", 24, 0, 255, 255, 255).
 				Attach(ui.Top, ui.Center)
 			ui.AddDrawable(ping)
 
@@ -150,8 +151,10 @@ func (p *playerListUI) render(delta float64) {
 		e.icon.Texture = pl.skin
 		e.iconHat.Y = 1 + 18*float64(count)
 		e.iconHat.Texture = pl.skin
-
 		e.ping.Y = 1 + 18*float64(count)
+		e.ping.Update(pl.ping)
+
+		/*e.ping.Y = 1 + 18*float64(count)
 		y := 0.0
 		switch {
 		case pl.ping <= 75:
@@ -167,7 +170,7 @@ func (p *playerListUI) render(delta float64) {
 		default:
 			y = 56 / 256.0
 		}
-		e.ping.TY = y
+		e.ping.TY = y*/
 		count++
 	}
 
